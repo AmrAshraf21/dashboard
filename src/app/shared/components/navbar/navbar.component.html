@@ -1,0 +1,72 @@
+<header class="bg-white border-b border-gray-200 px-4 py-3 sticky top-0 z-20">
+  <div class="flex items-center justify-between">
+    <!-- Left Section: Menu Toggle & Search -->
+    <div class="flex items-center space-x-4 flex-1">
+      <button 
+        mat-icon-button 
+        (click)="onToggleSidebar()"
+        class="text-gray-600">
+        <mat-icon>menu</mat-icon>
+      </button>
+
+      <!-- Search Bar -->
+      <div class="hidden md:flex items-center bg-gray-50 rounded-lg px-4 py-2 flex-1 max-w-md">
+        <mat-icon class="text-gray-400 mr-2">search</mat-icon>
+        <input 
+          type="text" 
+          placeholder="Search" 
+          class="bg-transparent border-none outline-none text-sm text-gray-700 w-full">
+      </div>
+    </div>
+
+    <!-- Right Section: Icons & Profile -->
+    <div class="flex items-center space-x-2">
+      <!-- Settings Icon -->
+      <button mat-icon-button class="text-gray-600">
+        <mat-icon>settings</mat-icon>
+      </button>
+
+      <!-- Notifications -->
+      <button 
+        mat-icon-button 
+        class="text-gray-600 relative"
+        (click)="onNotificationsClick()">
+        <mat-icon>notifications</mat-icon>
+        <span 
+          *ngIf="notificationCount > 0"
+          class="absolute top-2 right-2 bg-red-500 text-white text-xs font-bold rounded-full w-4 h-4 flex items-center justify-center">
+          {{ notificationCount }}
+        </span>
+      </button>
+
+      <!-- User Profile -->
+      <button 
+        mat-button 
+        class="flex items-center space-x-2 ml-2"
+        (click)="onProfileClick()">
+        <div class="w-8 h-8 rounded-full bg-gray-300 overflow-hidden">
+          <img 
+            [src]="currentUser.avatar" 
+            [alt]="currentUser.name"
+            class="w-full h-full object-cover"
+            (error)="$any($event.target).src='assets/images/default-avatar.png'">
+        </div>
+        <span class="hidden md:inline text-sm font-medium text-gray-700">
+          {{ currentUser.name }}
+        </span>
+        <mat-icon class="hidden md:inline text-gray-400">keyboard_arrow_down</mat-icon>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile Search -->
+  <div class="md:hidden mt-3">
+    <div class="flex items-center bg-gray-50 rounded-lg px-4 py-2">
+      <mat-icon class="text-gray-400 mr-2">search</mat-icon>
+      <input 
+        type="text" 
+        placeholder="Search" 
+        class="bg-transparent border-none outline-none text-sm text-gray-700 w-full">
+    </div>
+  </div>
+</header>

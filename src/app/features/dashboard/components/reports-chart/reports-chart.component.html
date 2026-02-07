@@ -1,0 +1,38 @@
+<div class="bg-white rounded-lg shadow-card p-6">
+  <!-- Chart Header -->
+  <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6">
+    <div>
+      <h3 class="text-lg font-semibold text-gray-900">Report</h3>
+      <p class="text-sm text-gray-500 mt-1">Sales performance over time</p>
+    </div>
+
+    <!-- Period Selector -->
+    <div class="flex items-center space-x-2 mt-4 sm:mt-0">
+      <button *ngFor="let period of ['Day', 'Week', 'Month', 'Year']" (click)="onPeriodChange(period)"
+        [class.active]="selectedPeriod === period.toLowerCase()"
+        class="period-btn px-4 py-2 rounded-lg text-sm font-medium transition-colors duration-150">
+        {{ period }}
+      </button>
+    </div>
+  </div>
+
+  <!-- Loading State -->
+  <div *ngIf="isLoading" class="flex items-center justify-center h-[350px]">
+    <mat-spinner diameter="40"></mat-spinner>
+  </div>
+
+  <!-- Chart -->
+  <div *ngIf="!isLoading && data">
+    <apx-chart #chart [series]="chartOptions.series!" [chart]="chartOptions.chart!" [xaxis]="chartOptions.xaxis!"
+      [yaxis]="chartOptions.yaxis!" [grid]="chartOptions.grid!" [tooltip]="chartOptions.tooltip!"
+      [stroke]="chartOptions.stroke!" [fill]="chartOptions.fill!" [dataLabels]="chartOptions.dataLabels!"
+      [colors]="chartOptions.colors!">
+    </apx-chart>
+  </div>
+
+  <!-- Empty State -->
+  <div *ngIf="!isLoading && !data" class="flex flex-col items-center justify-center h-[350px] text-gray-400">
+    <mat-icon class="text-6xl mb-2">insert_chart</mat-icon>
+    <p class="text-sm">No data available</p>
+  </div>
+</div>

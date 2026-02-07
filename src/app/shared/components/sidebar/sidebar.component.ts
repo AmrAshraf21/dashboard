@@ -29,7 +29,17 @@ export class SidebarComponent {
     { label: 'Settings', icon: 'settings', route: '/settings' }
   ];
 
-  constructor(private router: Router) {}
+  constructor(private router: Router) { }
+
+  get filteredNavItems(): NavItem[] {
+    // No auth/role filtering after auth removal
+    return this.navItems;
+  }
+
+  logout(): void {
+    // Redirect to dashboard (no login page)
+    this.router.navigate(['/dashboard']);
+  }
 
   isActive(route: string): boolean {
     return this.router.url === route || this.router.url.startsWith(route + '/');
@@ -38,4 +48,4 @@ export class SidebarComponent {
   onToggle(): void {
     this.toggleSidebar.emit();
   }
-}
+} 

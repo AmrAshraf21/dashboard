@@ -1,0 +1,136 @@
+<div class="orders-container p-4 md:p-6 bg-gray-50 min-h-screen">
+  <div class="max-w-7xl mx-auto">
+    <!-- Header -->
+    <div class="mb-6">
+      <h1 class="text-3xl font-bold text-gray-900">Orders</h1>
+      <p class="text-gray-600 mt-2">Manage and view all your orders</p>
+    </div>
+
+    <!-- Orders Table Card -->
+    <div class="bg-white rounded-lg shadow-card">
+      <!-- Loading State -->
+      <div *ngIf="isLoading" class="flex items-center justify-center py-12">
+        <mat-spinner diameter="50"></mat-spinner>
+      </div>
+
+      <!-- Desktop Table -->
+      <div *ngIf="!isLoading" class="hidden md:block overflow-x-auto">
+        <table mat-table [dataSource]="dataSource" class="w-full">
+          <!-- ID Column -->
+          <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef class="px-6 py-3 bg-gray-50">Order ID</th>
+            <td mat-cell *matCellDef="let order" class="px-6 py-4">#{{ order.id }}</td>
+          </ng-container>
+
+          <!-- Item Name Column -->
+          <ng-container matColumnDef="itemName">
+            <th mat-header-cell *matHeaderCellDef class="px-6 py-3 bg-gray-50">Item Name</th>
+            <td mat-cell *matCellDef="let order" class="px-6 py-4">
+              <div class="flex items-center">
+                <div class="w-10 h-10 bg-gray-200 rounded mr-3 flex-shrink-0">
+                  <mat-icon class="text-gray-400 w-10 h-10">phone_iphone</mat-icon>
+                </div>
+                <span class="font-medium">{{ order.itemName }}</span>
+              </div>
+            </td>
+          </ng-container>
+
+          <!-- Quantity Column -->
+          <ng-container matColumnDef="quantity">
+            <th mat-header-cell *matHeaderCellDef class="px-6 py-3 bg-gray-50">Quantity</th>
+            <td mat-cell *matCellDef="let order" class="px-6 py-4">{{ order.quantity }}</td>
+          </ng-container>
+
+          <!-- Order Date Column -->
+          <ng-container matColumnDef="orderDate">
+            <th mat-header-cell *matHeaderCellDef class="px-6 py-3 bg-gray-50">Order Date</th>
+            <td mat-cell *matCellDef="let order" class="px-6 py-4 text-gray-600">{{ order.orderDate }}</td>
+          </ng-container>
+
+          <!-- Amount Column -->
+          <ng-container matColumnDef="amount">
+            <th mat-header-cell *matHeaderCellDef class="px-6 py-3 bg-gray-50">Amount</th>
+            <td mat-cell *matCellDef="let order" class="px-6 py-4 font-semibold">{{ formatCurrency(order.amount) }}</td>
+          </ng-container>
+
+          <!-- Status Column -->
+          <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef class="px-6 py-3 bg-gray-50">Status</th>
+            <td mat-cell *matCellDef="let order" class="px-6 py-4">
+              <span [class]="getStatusClass(order.status)" class="px-3 py-1 text-xs font-semibold rounded-full">
+                {{ order.status }}
+              </span>
+            </td>
+          </ng-container>
+
+          <!-- Actions Column -->
+          <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef class="px-6 py-3 bg-gray-50">Actions</th>
+            <td mat-cell *matCellDef="let order" class="px-6 py-4">
+              <button mat-icon-button (click)="onViewOrder(order)" matTooltip="View Details">
+                <mat-icon>visibility</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="hover:bg-gray-50 cursor-pointer" (click)="onViewOrder(row)"></tr>
+        </table>
+
+        <!-- Paginator -->
+        <mat-paginator 
+          [length]="totalOrders"
+          [pageSize]="pageSize"
+          [pageSizeOptions]="[5, 10, 25, 50]"
+          (page)="onPageChange($event)"
+          showFirstLastButtons>
+        </mat-paginator>
+      </div>
+
+      <!-- Mobile Cards -->
+      <div *ngIf="!isLoading" class="md:hidden p-4 space-y-4">
+        <div 
+          *ngFor="let order of dataSource.data; trackBy: trackByOrderId"
+          class="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow duration-150 cursor-pointer"
+          (click)="onViewOrder(order)">
+          <div class="flex items-start justify-between mb-3">
+            <div class="flex items-center">
+              <div class="w-12 h-12 bg-gray-200 rounded mr-3">
+                <mat-icon class="text-gray-400 w-12 h-12">phone_iphone</mat-icon>
+              </div>
+              <div>
+                <h4 class="font-medium text-gray-900">{{ order.itemName }}</h4>
+                <p class="text-sm text-gray-500">Order #{{ order.id }}</p>
+              </div>
+            </div>
+            <span [class]="getStatusClass(order.status)" class="px-2 py-1 text-xs font-semibold rounded-full">
+              {{ order.status }}
+            </span>
+          </div>
+          <div class="grid grid-cols-2 gap-2 text-sm">
+            <div>
+              <span class="text-gray-500">Quantity:</span>
+              <span class="font-medium ml-1">{{ order.quantity }}</span>
+            </div>
+            <div class="text-right">
+              <span class="font-medium text-gray-900">{{ formatCurrency(order.amount) }}</span>
+            </div>
+            <div class="col-span-2">
+              <span class="text-gray-500">{{ order.orderDate }}</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Mobile Pagination -->
+        <div class="mt-4">
+          <mat-paginator 
+            [length]="totalOrders"
+            [pageSize]="pageSize"
+            [pageSizeOptions]="[5, 10, 25]"
+            (page)="onPageChange($event)">
+          </mat-paginator>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

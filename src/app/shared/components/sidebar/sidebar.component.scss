@@ -1,0 +1,42 @@
+.sidebar {
+  width: 280px;
+  
+  @media (max-width: 768px) {
+    transform: translateX(-100%);
+    
+    &.sidebar-open {
+      transform: translateX(0);
+    }
+  }
+  
+  &.sidebar-closed {
+    width: 80px;
+    
+    .nav-item span {
+      display: none;
+    }
+  }
+}
+
+.nav-item {
+  &.active {
+    background-color: #e3f2fd;
+    color: #1976d2;
+    
+    mat-icon {
+      color: #1976d2;
+    }
+  }
+  
+  mat-icon {
+    font-size: 24px;
+    width: 24px;
+    height: 24px;
+  }
+}
+
+.sidebar-overlay {
+  @media (min-width: 769px) {
+    display: none;
+  }
+}

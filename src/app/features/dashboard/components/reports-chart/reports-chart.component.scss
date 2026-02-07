@@ -1,0 +1,17 @@
+:host {
+  display: block;
+}
+
+.period-btn {
+  background-color: #f3f4f6;
+  color: #6b7280;
+
+  &:hover {
+    background-color: #e5e7eb;
+  }
+
+  &.active {
+    background-color: #2196f3;
+    color: #ffffff;
+  }
+}

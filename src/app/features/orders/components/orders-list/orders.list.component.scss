@@ -1,0 +1,30 @@
+:host {
+  display: block;
+}
+
+.mat-mdc-table {
+  box-shadow: none;
+  background-color: transparent;
+}
+
+.mat-mdc-header-cell {
+  font-weight: 600;
+  color: #6b7280;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+}
+
+.mat-mdc-cell {
+  color: #374151;
+}
+
+.mat-mdc-row:hover {
+  background-color: #f9fafb;
+}
+
+.mat-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

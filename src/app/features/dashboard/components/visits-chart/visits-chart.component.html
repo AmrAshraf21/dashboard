@@ -1,0 +1,38 @@
+<div class="bg-white rounded-lg shadow-card p-6">
+  <div class="flex flex-col mb-6">
+    <h3 class="text-lg font-semibold text-gray-900 mb-2">Visits</h3>
+    
+    <div class="flex items-center space-x-2">
+      <button 
+        *ngFor="let view of ['D', 'W', 'M']"
+        (click)="onViewChange(view === 'D' ? 'day' : view === 'W' ? 'week' : 'month')"
+        [class.active]="(view === 'D' && selectedView === 'day') || (view === 'W' && selectedView === 'week') || (view === 'M' && selectedView === 'month')"
+        class="view-btn w-8 h-8 rounded-lg text-sm font-medium transition-colors duration-150 flex items-center justify-center">
+        {{ view }}
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="isLoading" class="flex items-center justify-center h-[350px]">
+    <mat-spinner diameter="40"></mat-spinner>
+  </div>
+
+  <div *ngIf="!isLoading && data && data.length > 0">
+    <
+      #chart
+      [series]="chartOptions.series!"
+      [chart]="chartOptions.chart!"
+      [xaxis]="chartOptions.xaxis!"
+      [yaxis]="chartOptions.yaxis!"
+      [grid]="chartOptions.grid!"
+      [dataLabels]="chartOptions.dataLabels!"
+      [plotOptions]="chartOptions.plotOptions!"
+      [colors]="chartOptions.colors!">
+    
+  </div>
+
+  <div *ngIf="!isLoading && (!data || data.length === 0)" class="flex flex-col items-center justify-center h-[350px] text-gray-400">
+    <mat-icon class="text-6xl mb-2">bar_chart</mat-icon>
+    <p class="text-sm">No data available</p>
+  </div>
+</div>

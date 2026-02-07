@@ -12,7 +12,9 @@ export class AnalyticsService {
 
     constructor() { }
 
+
    
+
     getAnalyticsCards(): Observable<AnalyticsCard[]> {
         this.loadingSubject.next(true);
 

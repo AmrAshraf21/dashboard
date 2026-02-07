@@ -20,7 +20,7 @@ A responsive admin dashboard built with Angular 18, featuring analytics cards, i
 
 ## Tech Stack
 
-- Angular 18+ (latest stable version)
+- Angular 18+ 
 - TypeScript 5+
 - Angular Material
 - Tailwind CSS

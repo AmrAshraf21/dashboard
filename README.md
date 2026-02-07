@@ -77,13 +77,13 @@ src/
 │   │   ├── services/            # Global services
 │   │   │   ├── analytics.service.ts
 │   │   │   ├── orders.service.ts
-│   │   │   └── auth.service.ts (bonus)
+│   │   │   
 │   │   ├── models/              # TypeScript interfaces
 │   │   │   ├── analytics.model.ts
 │   │   │   ├── order.model.ts
 │   │   │   └── user.model.ts
-│   │   ├── interceptors/        # HTTP interceptors
-│   │   └── guards/              # Route guards
+│   │         
+│   │             
 │   │
 │   ├── shared/                  # Shared module (reusable components)
 │   │   ├── components/
@@ -91,7 +91,7 @@ src/
 │   │   │   ├── navbar/
 │   │   │   ├── analytics-card/
 │   │   │   ├── chart-card/
-│   │   │   └── loader/
+│   │   │   
 │   │   └── shared.module.ts
 │   │
 │   ├── features/                # Feature modules (lazy loaded)
@@ -112,10 +112,10 @@ src/
 │   │   │   ├── orders-routing.module.ts
 │   │   │   └── orders.module.ts
 │   │   │
-│   │   └── auth/ (optional)
-│   │       ├── components/
-│   │       │   └── login/
-│   │       └── auth.module.ts
+│   │   
+│   │       
+│   │       
+│   │       
 │   │
 │   ├── layout/                  # Layout components
 │   │   └── main-layout/
@@ -154,7 +154,7 @@ src/
 
 - Services use BehaviorSubject for reactive state management
 - RxJS operators for data transformation and error handling
-- (Bonus: NgRx can be added for complex state management)
+
 
 ### 4. **Styling Approach**
 
@@ -246,34 +246,7 @@ ng lint
 
 ESLint configuration is included for code quality.
 
-## Browser Support
 
-- Chrome (latest)
-- Firefox (latest)
-- Safari (latest)
-- Edge (latest)
-
-## Performance Optimizations
-
-- Lazy loading of feature modules
-- OnPush change detection strategy where applicable
-- TrackBy functions in lists
-- Image optimization
-- Production build with AOT compilation
-
-## Future Enhancements
-
-- [ ] NgRx for advanced state management
-- [ ] Real-time data with WebSockets
-- [ ] Advanced filtering and search
-- [ ] Export functionality (PDF, Excel)
-- [ ] Dark mode toggle                 
-- [ ] Multi-language support (i18n)
-- [ ] Progressive Web App (PWA) features
-
-## Troubleshooting
-
-### Port already in use
 
 ```bash
 ng serve --port 4201
